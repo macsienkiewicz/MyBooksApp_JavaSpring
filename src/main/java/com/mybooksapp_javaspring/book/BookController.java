@@ -6,6 +6,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/books")
 class BookController {
@@ -15,7 +16,6 @@ class BookController {
         this.bookService = bookService;
     }
 
-    @CrossOrigin
     @GetMapping
     ResponseEntity<List<BookDTO>> getBooks() {
         List<BookDTO> books = bookService.getBooks();
@@ -25,7 +25,6 @@ class BookController {
         return ResponseEntity.ok(books);
     }
 
-    @CrossOrigin
     @GetMapping("/{id}")
     ResponseEntity<BookDTO> getBookById(@PathVariable int id) {
         return bookService.getBookById(id)
@@ -33,7 +32,6 @@ class BookController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @CrossOrigin
     @PostMapping
     ResponseEntity<BookDTO> saveBook(@RequestBody BookDTO dto) {
         BookDTO savedBook = bookService.saveBook(dto);
@@ -44,7 +42,6 @@ class BookController {
         return ResponseEntity.created(savedBookUri).body(savedBook);
     }
 
-    @CrossOrigin
     @PatchMapping("/{id}")
     ResponseEntity<?> updateBook(@PathVariable int id, @RequestBody BookDTO book) {
         return bookService.updateBook(id, book)
@@ -52,7 +49,6 @@ class BookController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @CrossOrigin
     @DeleteMapping("/{id}")
     ResponseEntity<?> deleteBook(@PathVariable int id) {
         bookService.deleteBook(id);

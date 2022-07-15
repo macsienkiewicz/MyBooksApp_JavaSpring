@@ -6,6 +6,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/authors")
 class AuthorController {
@@ -15,7 +16,6 @@ class AuthorController {
         this.authorService = authorService;
     }
 
-    @CrossOrigin
     @GetMapping
     ResponseEntity<List<AuthorDTO>> getAuthors() {
         List<AuthorDTO> authors = authorService.getAuthors();
@@ -25,7 +25,6 @@ class AuthorController {
         return ResponseEntity.ok(authors);
     }
 
-    @CrossOrigin
     @GetMapping("/{id}")
     ResponseEntity<AuthorDTO> getAuthorById(@PathVariable int id) {
         return authorService.getAuthorById(id)
@@ -33,7 +32,6 @@ class AuthorController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @CrossOrigin
     @PostMapping
     ResponseEntity<AuthorDTO> saveAuthor(@RequestBody AuthorDTO author) {
         AuthorDTO savedAuthor = authorService.saveAuthor(author);
@@ -44,7 +42,6 @@ class AuthorController {
         return ResponseEntity.created(savedAuthorUri).body(savedAuthor);
     }
 
-    @CrossOrigin
     @PutMapping("/{id}")
     ResponseEntity<?> replaceAuthor(@PathVariable int id, @RequestBody AuthorDTO author) {
         return authorService.replaceAuthor(id, author)
@@ -52,7 +49,6 @@ class AuthorController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @CrossOrigin
     @DeleteMapping("/{id}")
     ResponseEntity<?> deleteAuthor(@PathVariable int id) {
         authorService.deleteAuthor(id);
