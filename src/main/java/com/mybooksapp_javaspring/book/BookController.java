@@ -15,7 +15,7 @@ class BookController {
         this.bookService = bookService;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     @GetMapping
     ResponseEntity<List<BookDTO>> getBooks() {
         List<BookDTO> books = bookService.getBooks();
@@ -25,7 +25,7 @@ class BookController {
         return ResponseEntity.ok(books);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     @GetMapping("/{id}")
     ResponseEntity<BookDTO> getBookById(@PathVariable int id) {
         return bookService.getBookById(id)
@@ -33,7 +33,7 @@ class BookController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     @PostMapping
     ResponseEntity<BookDTO> saveBook(@RequestBody BookDTO dto) {
         BookDTO savedBook = bookService.saveBook(dto);
@@ -44,7 +44,7 @@ class BookController {
         return ResponseEntity.created(savedBookUri).body(savedBook);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     @PatchMapping("/{id}")
     ResponseEntity<?> updateBook(@PathVariable int id, @RequestBody BookDTO book) {
         return bookService.updateBook(id, book)
@@ -52,7 +52,7 @@ class BookController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     @DeleteMapping("/{id}")
     ResponseEntity<?> deleteBook(@PathVariable int id) {
         bookService.deleteBook(id);
