@@ -15,6 +15,7 @@ class AuthorController {
         this.authorService = authorService;
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping
     ResponseEntity<List<AuthorDTO>> getAuthors() {
         List<AuthorDTO> authors = authorService.getAuthors();
@@ -24,6 +25,7 @@ class AuthorController {
         return ResponseEntity.ok(authors);
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/{id}")
     ResponseEntity<AuthorDTO> getAuthorById(@PathVariable int id) {
         return authorService.getAuthorById(id)
@@ -31,6 +33,7 @@ class AuthorController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping
     ResponseEntity<AuthorDTO> saveAuthor(@RequestBody AuthorDTO author) {
         AuthorDTO savedAuthor = authorService.saveAuthor(author);
@@ -41,6 +44,7 @@ class AuthorController {
         return ResponseEntity.created(savedAuthorUri).body(savedAuthor);
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @PutMapping("/{id}")
     ResponseEntity<?> replaceAuthor(@PathVariable int id, @RequestBody AuthorDTO author) {
         return authorService.replaceAuthor(id, author)
@@ -48,6 +52,7 @@ class AuthorController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @DeleteMapping("/{id}")
     ResponseEntity<?> deleteAuthor(@PathVariable int id) {
         authorService.deleteAuthor(id);
